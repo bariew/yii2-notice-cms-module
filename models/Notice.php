@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\notice\models;
+namespace bariew\noticeModule\models;
 
 use Yii;
 
@@ -71,7 +71,7 @@ class Notice extends \yii\db\ActiveRecord
         if (!$this->owner_name || !$this->owner_event) {
             return null;
         }
-        return \app\modules\notice\models\EmailConfig::findOne([
+        return \bariew\noticeModule\models\EmailConfig::findOne([
             'owner_name' => $this->owner_name,
             'owner_event'=> $this->owner_event
         ]);
@@ -83,7 +83,7 @@ class Notice extends \yii\db\ActiveRecord
     {
         return array_merge(parent::behaviors(), [
             'emailBehavior' => [
-                'class'     => 'app\modules\notice\components\EmailBehavior',
+                'class'     => 'bariew\noticeModule\components\EmailBehavior',
                 'title'     => $this->title,
                 'content'   => $this->content,
                 'email'     => $this->address,

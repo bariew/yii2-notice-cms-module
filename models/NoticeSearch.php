@@ -1,14 +1,14 @@
 <?php
 
-namespace app\modules\notice\models;
+namespace bariew\noticeModule\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\notice\models\Notice;
+use bariew\noticeModule\models\Notice;
 
 /**
- * NoticeSearch represents the model behind the search form about `app\modules\notice\models\Notice`.
+ * NoticeSearch represents the model behind the search form about `bariew\noticeModule\models\Notice`.
  */
 class NoticeSearch extends Notice
 {

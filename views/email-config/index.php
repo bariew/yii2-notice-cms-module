@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var app\modules\notice\models\EmailConfigSearch $searchModel
+ * @var bariew\noticeModule\models\EmailConfigSearch $searchModel
  */
 
 $this->title = Yii::t('app', 'Email Configs');

@@ -5,7 +5,7 @@
  * @copyright (c) 2014, Moqod
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
-namespace app\modules\notice\components;
+namespace bariew\noticeModule\components;
 use app\modules\main\components\MainBehavior;
 use yii\db\ActiveRecord;
 /**

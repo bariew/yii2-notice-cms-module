@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
- * @var app\modules\notice\models\EmailConfigSearch $model
+ * @var bariew\noticeModule\models\EmailConfigSearch $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>

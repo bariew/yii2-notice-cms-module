@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\notice\models;
+namespace bariew\noticeModule\models;
 
 use Yii;
 

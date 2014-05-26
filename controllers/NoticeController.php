@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\notice\controllers;
+namespace bariew\noticeModule\controllers;
 
 use Yii;
-use app\modules\notice\models\Notice;
-use app\modules\notice\models\NoticeSearch;
+use bariew\noticeModule\models\Notice;
+use bariew\noticeModule\models\NoticeSearch;
 use app\modules\main\controllers\AdminController;
 use yii\web\NotFoundHttpException;
 

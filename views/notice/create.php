@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
- * @var app\modules\notice\models\Notice $model
+ * @var bariew\noticeModule\models\Notice $model
  */
 
 $this->title = Yii::t('app', 'Create {modelClass}', [

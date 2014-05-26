@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var app\modules\notice\models\EmailConfig $model
+ * @var bariew\noticeModule\models\EmailConfig $model
  */
 
 $this->title = $model->title;

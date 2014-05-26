@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\notice\controllers;
+namespace bariew\noticeModule\controllers;
 
 use Yii;
-use app\modules\notice\models\EmailConfig;
-use app\modules\notice\models\EmailConfigSearch;
+use bariew\noticeModule\models\EmailConfig;
+use bariew\noticeModule\models\EmailConfigSearch;
 use app\modules\main\controllers\AdminController;
 use yii\web\NotFoundHttpException;
 
