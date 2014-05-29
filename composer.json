@@ -2,7 +2,6 @@
     "name": "bariew/yii2-notice-cms-module",
     "description": "",
     "type": "yii2-extension",
-    "version": "0.1.0",
     "keywords": ["yii2","module","email"],
     "license": "BSD-3-Clause",
     "authors": [

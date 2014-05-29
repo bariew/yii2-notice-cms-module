@@ -6,7 +6,6 @@
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
 namespace bariew\noticeModule\components;
-use app\modules\main\components\MainBehavior;
 use yii\db\ActiveRecord;
 /**
  * sends emails after new owner model saved
