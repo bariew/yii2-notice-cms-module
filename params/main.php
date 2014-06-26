@@ -11,7 +11,7 @@ return [
 //                ['bariew\noticeModule\models\Item', 'test']
 //            ],
 //        ],
-
+    ],
     'menu'  => [
         'label'    => 'Items',
         'items' => [
