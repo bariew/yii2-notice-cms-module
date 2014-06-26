@@ -5,12 +5,11 @@ namespace bariew\noticeModule\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use bariew\noticeModule\models\Notice;
 
 /**
- * NoticeSearch represents the model behind the search form about `bariew\noticeModule\models\Notice`.
+ * ItemSearch represents the model behind the search form about `bariew\noticeModule\models\Item`.
  */
-class NoticeSearch extends Notice
+class ItemSearch extends Item
 {
     public function rules()
     {
@@ -28,7 +27,7 @@ class NoticeSearch extends Notice
 
     public function search($params)
     {
-        $query = Notice::find();
+        $query = Item::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

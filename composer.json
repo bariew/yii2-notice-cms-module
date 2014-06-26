@@ -10,6 +10,9 @@
             "email": "bariew@yandex.ru"
         }
     ],
+    "require"   : {
+        "asofter/yii2-imperavi-redactor": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "bariew\\noticeModule\\": ""

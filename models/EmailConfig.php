@@ -3,6 +3,7 @@
 namespace bariew\noticeModule\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "notice_email_config".
@@ -14,11 +15,11 @@ use Yii;
  * @property string $owner_name
  * @property string $owner_event
  */
-class EmailConfig extends \yii\db\ActiveRecord
+class EmailConfig extends ActiveRecord
 {
     public function variables()
     {
-        $notice = new Notice();
+        $notice = new Item();
         $variables = $notice->variables;
         if ($this->owner_name) {
             $owner = new $this->owner_name;

@@ -3,6 +3,8 @@
 namespace bariew\noticeModule\models;
 
 use Yii;
+use yii\base\Event;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "notice_notice".
@@ -18,7 +20,7 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  */
-class Notice extends \yii\db\ActiveRecord
+class Item extends ActiveRecord
 {
     const TYPE_EMAIL        = 1;
     const STATUS_SUCCESS    = 0;
@@ -31,7 +33,7 @@ class Notice extends \yii\db\ActiveRecord
         echo $event->sender->id; exit;
     }
     
-    public function setDefaulVariables()
+    public function setDefaultVariables()
     {
         $this->variables = [
             '{{site_url}}'  => Yii::$app->request->hostInfo,
@@ -39,7 +41,7 @@ class Notice extends \yii\db\ActiveRecord
         ];
     }
     
-    public static function userRegistration(\yii\base\Event $event)
+    public static function userRegistration(Event $event)
     {
         $user = $event->sender;
         if ($user->scenario == 'root') {
@@ -71,7 +73,7 @@ class Notice extends \yii\db\ActiveRecord
         if (!$this->owner_name || !$this->owner_event) {
             return null;
         }
-        return \bariew\noticeModule\models\EmailConfig::findOne([
+        return EmailConfig::findOne([
             'owner_name' => $this->owner_name,
             'owner_event'=> $this->owner_event
         ]);
@@ -140,7 +142,7 @@ class Notice extends \yii\db\ActiveRecord
     public function init() 
     {
         parent::init();
-        $this->setDefaulVariables();
+        $this->setDefaultVariables();
     }
     
     /**
@@ -148,6 +150,6 @@ class Notice extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'notice_notice';
+        return '{{notice_item}}';
     }    
 }

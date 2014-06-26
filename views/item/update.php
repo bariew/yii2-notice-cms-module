@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
- * @var bariew\noticeModule\models\Notice $model
+ * @var bariew\noticeModule\models\Item $model
  */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
-  'modelClass' => 'Notice',
+  'modelClass' => 'Item',
 ]) . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Notices'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Items'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>

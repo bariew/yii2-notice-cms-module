@@ -6,10 +6,10 @@ use yii\grid\GridView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var bariew\noticeModule\models\NoticeSearch $searchModel
+ * @var bariew\noticeModule\models\ItemSearch $searchModel
  */
 
-$this->title = Yii::t('app', 'Notices');
+$this->title = Yii::t('app', 'Items');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="notice-index">
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php echo Html::a(Yii::t('app', 'Create {modelClass}', [
-  'modelClass' => 'Notice',
+  'modelClass' => 'Item',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 

@@ -5,13 +5,13 @@ namespace bariew\noticeModule\controllers;
 use Yii;
 use bariew\noticeModule\models\EmailConfig;
 use bariew\noticeModule\models\EmailConfigSearch;
-use app\modules\main\controllers\AdminController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
  * EmailConfigController implements the CRUD actions for EmailConfig model.
  */
-class EmailConfigController extends AdminController
+class EmailConfigController extends Controller
 {
     /**
      * Lists all EmailConfig models.

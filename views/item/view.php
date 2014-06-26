@@ -5,11 +5,11 @@ use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var bariew\noticeModule\models\Notice $model
+ * @var bariew\noticeModule\models\Item $model
  */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Notices'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Items'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="notice-view">

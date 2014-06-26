@@ -3,23 +3,23 @@
 namespace bariew\noticeModule\controllers;
 
 use Yii;
-use bariew\noticeModule\models\Notice;
-use bariew\noticeModule\models\NoticeSearch;
-use app\modules\main\controllers\AdminController;
+use bariew\noticeModule\models\Item;
+use bariew\noticeModule\models\ItemSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
- * NoticeController implements the CRUD actions for Notice model.
+ * ItemController implements the CRUD actions for Item model.
  */
-class NoticeController extends AdminController
+class ItemController extends Controller
 {
     /**
-     * Lists all Notice models.
+     * Lists all Item models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NoticeSearch;
+        $searchModel = new ItemSearch;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
@@ -29,7 +29,7 @@ class NoticeController extends AdminController
     }
 
     /**
-     * Displays a single Notice model.
+     * Displays a single Item model.
      * @param integer $id
      * @return mixed
      */
@@ -41,13 +41,13 @@ class NoticeController extends AdminController
     }
 
     /**
-     * Creates a new Notice model.
+     * Creates a new Item model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Notice;
+        $model = new Item;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -59,7 +59,7 @@ class NoticeController extends AdminController
     }
 
     /**
-     * Updates an existing Notice model.
+     * Updates an existing Item model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -78,7 +78,7 @@ class NoticeController extends AdminController
     }
 
     /**
-     * Deletes an existing Notice model.
+     * Deletes an existing Item model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -91,15 +91,15 @@ class NoticeController extends AdminController
     }
 
     /**
-     * Finds the Notice model based on its primary key value.
+     * Finds the Item model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Notice the loaded model
+     * @return Item the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Notice::findOne($id)) !== null) {
+        if (($model = Item::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

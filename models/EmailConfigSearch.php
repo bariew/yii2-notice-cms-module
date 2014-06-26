@@ -5,7 +5,6 @@ namespace bariew\noticeModule\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use bariew\noticeModule\models\EmailConfig;
 
 /**
  * EmailConfigSearch represents the model behind the search form about `bariew\noticeModule\models\EmailConfig`.

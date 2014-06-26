@@ -1,10 +1,10 @@
 <?php
 
-class m140417_081330_notice_notice extends \yii\db\Migration
+class m140417_081330_notice_item extends \yii\db\Migration
 {
     public function up()
     {
-        $this->createTable('notice_notice', array(
+        $this->createTable('notice_item', array(
             'id'            => 'pk',
             'address'       => 'string',
             'title'         => 'string',
@@ -20,6 +20,6 @@ class m140417_081330_notice_notice extends \yii\db\Migration
 
     public function down()
     {
-        return $this->dropTable('notice_notice');
+        return $this->dropTable('notice_item');
     }
 }
