@@ -27,7 +27,7 @@ class Item extends ActiveRecord
     const STATUS_ERROR      = 1;
     
     public $variables = [];
-    
+
     public static function test($event)
     {
         echo $event->sender->id; exit;
