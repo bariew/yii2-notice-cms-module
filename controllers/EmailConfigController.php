@@ -2,9 +2,11 @@
 
 namespace bariew\noticeModule\controllers;
 
+use bariew\noticeModule\helpers\ClassCrawler;
 use Yii;
 use bariew\noticeModule\models\EmailConfig;
 use bariew\noticeModule\models\EmailConfigSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -91,21 +93,25 @@ class EmailConfigController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionNamespaces()
+    public function actionClasses()
     {
-        $result = [];
-        foreach (Yii::$aliases as $aliases) {
-            foreach (array_keys((array) $aliases) as $alias) {
-                if (!$alias) {
-                    continue;
-                }
-                $result[]  = str_replace('@', '', $alias);
-            }
-        }
         Yii::$app->response->format = Response::FORMAT_JSON;
-        return $result;
+        return ClassCrawler::getAllClasses();
     }
 
+    public function actionEvents()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $result = ($post = Yii::$app->request->post('depdrop_parents'))
+            ? array_flip(ClassCrawler::getEventNames($post[0]))
+            : [];
+        $output = [];
+        foreach ($result as $id => $name) {
+            $output[] = compact('id', 'name');
+        }
+        echo Json::encode(['output' => $output, 'selected' => '']);
+
+    }
     /**
      * Finds the EmailConfig model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

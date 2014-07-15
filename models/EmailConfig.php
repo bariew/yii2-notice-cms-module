@@ -2,6 +2,7 @@
 
 namespace bariew\noticeModule\models;
 
+use bariew\noticeModule\helpers\ClassCrawler;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -66,5 +67,18 @@ class EmailConfig extends ActiveRecord
             'owner_name' => Yii::t('app', 'Owner Name'),
             'owner_event' => Yii::t('app', 'Owner Event'),
         ];
+    }
+
+    public function eventList()
+    {
+        return ($this->owner_name)
+            ? array_flip(ClassCrawler::getEventNames($this->owner_name))
+            : [];
+    }
+
+    public static function classList()
+    {
+        $classes = ClassCrawler::getAllClasses();
+        return array_combine($classes, $classes);
     }
 }
