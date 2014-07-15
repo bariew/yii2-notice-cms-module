@@ -7,6 +7,7 @@ use bariew\noticeModule\models\EmailConfig;
 use bariew\noticeModule\models\EmailConfigSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * EmailConfigController implements the CRUD actions for EmailConfig model.
@@ -88,6 +89,21 @@ class EmailConfigController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionNamespaces()
+    {
+        $result = [];
+        foreach (Yii::$aliases as $aliases) {
+            foreach (array_keys((array) $aliases) as $alias) {
+                if (!$alias) {
+                    continue;
+                }
+                $result[]  = str_replace('@', '', $alias);
+            }
+        }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $result;
     }
 
     /**

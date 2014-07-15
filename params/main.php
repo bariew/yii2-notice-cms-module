@@ -13,7 +13,7 @@ return [
 //        ],
     ],
     'menu'  => [
-        'label'    => 'Items',
+        'label'    => 'Notifications',
         'items' => [
             ['label'    => 'Log', 'url' => ['/notice/item/index']],
             ['label'    => 'Settings', 'url' => ['/notice/email-config/index']]
