@@ -15,9 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="notice-index">
 
     <h1><?php echo Html::encode($this->title) ?></h1>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?php echo Html::a(Yii::t('app', 'Create {modelClass}', [
   'modelClass' => 'Item',
@@ -28,19 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            'created_at:datetime',
             'address',
-            'title',
-            'content',
             'owner_name',
-            // 'owner_event',
-            // 'owner_id',
-            // 'type',
-            // 'status',
-            // 'created_at',
-
+            'owner_event',
+            [
+                'attribute' => 'status',
+                'filter'     => Html::activeDropDownList($searchModel, 'status', $searchModel::statusList(), [
+                    'prompt' => '',
+                    'class' => 'form-control'
+                ]),
+                'value' => function ($data) { return $data::statusList()[$data->status];}
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

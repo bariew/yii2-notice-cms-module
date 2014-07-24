@@ -2,6 +2,7 @@
 
 namespace bariew\noticeModule\models;
 
+use bariew\noticeModule\components\EmailBehavior;
 use Yii;
 use yii\base\Event;
 use yii\db\ActiveRecord;
@@ -25,13 +26,10 @@ class Item extends ActiveRecord
     const TYPE_EMAIL        = 1;
     const STATUS_SUCCESS    = 0;
     const STATUS_ERROR      = 1;
-    
+    const HANDLER_METHOD = 'eventEmail';
+
     public $variables = [];
 
-    public static function test($event)
-    {
-        echo $event->sender->id; exit;
-    }
     
     public function setDefaultVariables()
     {
@@ -41,28 +39,19 @@ class Item extends ActiveRecord
         ];
     }
     
-    public static function userRegistration(Event $event)
+    public static function eventEmail(Event $event)
     {
-        $user = $event->sender;
-        if ($user->scenario == 'root') {
-            return true;
-        }
         $model = new self(['scenario'=>'root']);
-        $model->owner_event   = $event->name;
-        return $model->addUser($user)->save();
+        $model->type = self::TYPE_EMAIL;
+        return $model->setEvent($event)->save();
     }
     
-    public function addUser($user)
+    public function setEvent($event)
     {
-        $this->attributes = [
-            'address'       => $user->email,
-            'owner_name'    => get_class($user),
-            'owner_id'      => $user->id,
-            'type'          => self::TYPE_EMAIL,
-            'content'       => 'test user registration content',
-            'title'         => 'test user registration title',
-        ];
-        foreach ($user->attributes as $attribute=>$value) {
+        $this->owner_event   = $event->name;
+        $this->owner_name = get_class($event->sender);
+        $this->owner_id = $event->sender->primaryKey;
+        foreach ($event->sender->attributes as $attribute => $value) {
             $this->variables['{{'.$attribute.'}}'] = $value;
         }
         return $this;
@@ -78,21 +67,34 @@ class Item extends ActiveRecord
             'owner_event'=> $this->owner_event
         ]);
     }
+
+    public static function statusList()
+    {
+        return [
+            self::STATUS_SUCCESS => 'Success',
+            self::STATUS_ERROR  => 'Error'
+        ];
+    }
+
+    public function getStatusName()
+    {
+        return self::statusList()[$this->status];
+    }
+
+    public static function typeList()
+    {
+        return [
+            self::TYPE_EMAIL => 'Email',
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function behaviors() 
     {
         return array_merge(parent::behaviors(), [
-            'emailBehavior' => [
-                'class'     => 'bariew\noticeModule\components\EmailBehavior',
-                'title'     => $this->title,
-                'content'   => $this->content,
-                'email'     => $this->address,
-                'config'    => $this->getEmailConfig(),
-                'variables' => $this->variables,
-                'active'    => ($this->isNewRecord && $this->type == self::TYPE_EMAIL)
-            ],
+            EmailBehavior::className(),
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
@@ -108,7 +110,6 @@ class Item extends ActiveRecord
     public function rules()
     {
         return [
-            [['address'], 'required'],
             [['status'], 'default', 'value' => self::STATUS_ERROR],
             [['type'], 'default', 'value' => self::TYPE_EMAIL],
             

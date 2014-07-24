@@ -16,8 +16,10 @@ use kartik\widgets\Select2;
 <div class="email-config-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    
+
         <?php echo $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
+
+        <?php echo $form->field($model, 'address')->textInput(['maxlength' => 255]) ?>
 
         <?php echo $form->field($model, 'subject')->textInput(['maxlength' => 255]) ?>
 
@@ -35,15 +37,17 @@ use kartik\widgets\Select2;
             <?php endif; ?>
         </div>
 
-        <label>Email variables</label>
-        <?php echo DetailView::widget([
-            'model'         => false,
-            'attributes'     => $model->variables(),
-        ]);?>
-
         <?= $form->field($model, 'owner_name')->widget(Select2::classname(), [
             'data' => $model::classList(),
-            'options' => ['class' => 'form-control']
+            'options' => [
+                'class' => 'form-control',
+                'onchange'  => '
+                    $.post(
+                        "'.Url::toRoute(["model-variables"]).'",
+                        $(this).parents("form").serialize(),
+                        function(data) {  $(".configVariables").html(data); }
+                    )'
+            ]
         ]);?>
         <?= $form->field($model, 'owner_event')->widget(DepDrop::classname(), [
                 'data'=> $model->eventList(),
@@ -54,9 +58,16 @@ use kartik\widgets\Select2;
                     'url' => Url::toRoute(['events']),
                     'loadingText' => '',
                     'initialize' => true
-                ]
+                ],
             ]);
         ?>
+        <label>Email variables</label>
+        <div class="configVariables">
+            <?php echo DetailView::widget([
+                'model'         => false,
+                'attributes'    => $model->variables(),
+            ]);?>
+        </div>
 
         <div class="form-group">
             <?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

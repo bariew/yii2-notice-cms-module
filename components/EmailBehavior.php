@@ -6,25 +6,16 @@
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
 namespace bariew\noticeModule\components;
+use bariew\noticeModule\models\EmailConfig;
+use bariew\noticeModule\models\Item;
+use yii\base\Behavior;
 use yii\db\ActiveRecord;
 /**
  * sends emails after new owner model saved
  * @package application\modules\notice\components
  */
-class EmailBehavior extends MainBehavior 
+class EmailBehavior extends Behavior
 {
-    /**
-     * @var string email title
-     */
-    public $title;
-    /**
-     * @var string email content
-     */    
-    public $content;
-    /**
-     * @var string email address
-     */
-    public $email;
     /**
      * @var integer (1/0) whether owner is active
      */
@@ -52,42 +43,43 @@ class EmailBehavior extends MainBehavior
      */
     public function sendEmail()
     {
-        $this->refresh();
-        if (!$this->active) {
+        if (($this->owner->type != Item::TYPE_EMAIL) || (!$config = $this->owner->getEmailConfig())) {
             return true;
         }
-        $this->getFromConfig();
-        $this->title = $this->prepareString($this->title);
-        $this->content = $this->prepareString($this->content);
-        
+        $this->setFromConfig($config);
         return \Yii::$app->mail->compose()
             ->setFrom(\Yii::$app->params['adminEmail'])
-            ->setTo($this->email)
-            ->setSubject($this->title)
-            //->setTextBody($this->content)
-            ->setHtmlBody($this->content)
-            ->send();
+            ->setTo($this->owner->address)
+            ->setSubject($this->owner->title)
+            ->setHtmlBody($this->owner->content)
+            ->send()
+            ? ($this->owner->status = Item::STATUS_SUCCESS)
+            : ($this->owner->status = Item::STATUS_ERROR);
     }
+
     /**
      * gets data from email config EmailConfig
+     * @param EmailConfig $config
      * @return null if no config
      */
-    public function getFromConfig()
+    public function setFromConfig(EmailConfig $config)
     {
-        if (!$this->config) {
-            return;
+        foreach (['title', 'content', 'address'] as $attribute) {
+            $this->owner->$attribute = $this->prepareString($config->$attribute);
         }
-        $this->title = $this->config->subject;
-        $this->content = $this->config->content;
     }
     /**
      * prepares email content before sending
      * @param string $string email content
      * @test asd
-     * @return string preapred string
+     * @return string prepared string
      */
     private function prepareString($string)
     {
-        return str_replace(array_keys($this->variables), array_values($this->variables), $string);
+        return str_replace(
+            array_keys($this->owner->variables),
+            array_values($this->owner->variables),
+            $string
+        );
     }
 }

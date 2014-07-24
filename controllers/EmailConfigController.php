@@ -10,6 +10,7 @@ use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\widgets\DetailView;
 
 /**
  * EmailConfigController implements the CRUD actions for EmailConfig model.
@@ -93,12 +94,9 @@ class EmailConfigController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionClasses()
-    {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        return ClassCrawler::getAllClasses();
-    }
-
+    /**
+     * Returns json event list for form DepDrop widget.
+     */
     public function actionEvents()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
@@ -110,7 +108,16 @@ class EmailConfigController extends Controller
             $output[] = compact('id', 'name');
         }
         echo Json::encode(['output' => $output, 'selected' => '']);
+    }
 
+    public function actionModelVariables()
+    {
+        $model = new EmailConfig();
+        $model->load(Yii::$app->request->post());
+        echo DetailView::widget([
+            'model'         => false,
+            'attributes'    => $model->variables(),
+        ]);
     }
     /**
      * Finds the EmailConfig model based on its primary key value.

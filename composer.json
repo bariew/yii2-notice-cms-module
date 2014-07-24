@@ -10,7 +10,6 @@
             "email": "bariew@yandex.ru"
         }
     ],
-    "minimum-stability": "dev",
     "require"   : {
         "asofter/yii2-imperavi-redactor": "dev-master",
         "kartik-v/yii2-widgets": "dev-master"
